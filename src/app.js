@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const express = require('express');
 const app = express();
 require('dotenv/config');
+const cors = required('cors');
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 mongoose.connect(process.env.DB_CONNECTION, 
@@ -16,7 +17,7 @@ mongoose.connect(process.env.DB_CONNECTION,
 const authentication = require('./middleware/authenticate.js');
 //imports routes
 const queriesRoute = require('./routes/query-route.js');
-app.use('/api', queriesRoute);
+app.use('/api',queriesRoute);
 
 const blogsRoute = require('./routes/blogs-route.js');
 app.use('/api', blogsRoute);
