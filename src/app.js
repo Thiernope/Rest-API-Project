@@ -13,6 +13,9 @@ mongoose.connect(process.env.DB_CONNECTION,
 );
 
 
+//imports routes
+const queriesRoute = require('./routes/query-route.js');
+app.use('/api', queriesRoute);
 
 
 
