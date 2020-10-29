@@ -17,6 +17,8 @@ mongoose.connect(process.env.DB_CONNECTION,
 const queriesRoute = require('./routes/query-route.js');
 app.use('/api', queriesRoute);
 
+const blogsRoute = require('./routes/blogs-route.js');
+app.use('/api', blogsRoute);
 
 
 const port = process.env.PORT || 4000;
