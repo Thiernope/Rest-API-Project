@@ -20,7 +20,7 @@ const queriesRoute = require('./routes/query-route.js');
 app.use('/api',queriesRoute);
 
 const blogsRoute = require('./routes/blogs-route.js');
-app.use('/api', authentication,blogsRoute);
+app.use('/api', blogsRoute);
 
 const registerUser = require('./routes/user-route.js');
 app.use('/api', registerUser);
