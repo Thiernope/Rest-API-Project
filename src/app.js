@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const express = require('express');
 const app = express();
 require('dotenv/config');
-const cors = required('cors');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 mongoose.connect(process.env.DB_CONNECTION, 
@@ -20,7 +20,7 @@ const queriesRoute = require('./routes/query-route.js');
 app.use('/api',queriesRoute);
 
 const blogsRoute = require('./routes/blogs-route.js');
-app.use('/api', blogsRoute);
+app.use('/api', authentication,blogsRoute);
 
 const registerUser = require('./routes/user-route.js');
 app.use('/api', registerUser);
