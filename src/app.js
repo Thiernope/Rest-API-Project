@@ -13,7 +13,7 @@ mongoose.connect(process.env.DB_CONNECTION,
 },
 ()=>console.log("app is connected to mongoDB")
 );
-
+app.use(cors());
 //import authentication
 //const authentication = require('./middleware/authenticate.js'); 
 //imports routes
