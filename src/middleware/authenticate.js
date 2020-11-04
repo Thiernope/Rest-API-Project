@@ -10,5 +10,5 @@ res.json({message: "authentication failed"});
 }
 }
 
-
 module.exports = authenticate;
+
