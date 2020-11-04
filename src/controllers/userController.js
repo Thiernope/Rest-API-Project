@@ -3,6 +3,8 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { raw } = require('body-parser');
 const {SECRET} = require('../database/config.js')
+const passport = require('passport')
+
 const registerUser = async (userDets, role, res)=>{
 const passport = require('passport');
 
@@ -39,34 +41,14 @@ return res.status(201).json({
 });
     
 }
-
-
 const validateUsername = async username =>{
     let user = await User.findOne({username});
     return user? false: true
-/*
-    if(user){
-        return false;
-    }else{
-        return true
-    }
-    */
 }
-
 const validateEmail  = async email =>{
     let user = await User.findOne({email});
     return user? false: true
-/*
-    if(user){
-        return false;
-    }else{
-        return true
-    }
-    */
 }
-
-
-
 const loginUser = async(userCredentials, role, res)=>{
   let {username, password, email} = userCredentials;
 
@@ -130,8 +112,39 @@ return res.status(200).json({
 
 }
 
+//passport middleware
+
+const userAuth = passport.authenticate('jwt', {session: false});
+
+//check role middleware
+
+const roleCheck = roles =>(req, res, next)=>{
+    if(roles.includes(req.user.role)){
+        next();
+    }
+  return res.status (401).json({
+      message: "Unauthorized",
+      success: false
+  })
+}
+
+
+const serializeUser = user => {
+    return {
+        username: user.username,
+        email: user.email,
+        _id: user._id,
+        name: user.name,
+        phone: user.phone,
+        updatedAt: user.updatedAt,
+        createdAt: user.createdAt
+    }
+}
 
 module.exports = {
+    userAuth,
     registerUser, 
-    loginUser
+    loginUser,
+    serializeUser,
+    roleCheck
 }

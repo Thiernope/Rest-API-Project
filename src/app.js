@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 const express = require('express');
 const app = express();
 const DB = require('./database/config.js');
-
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
+const passport = require('passport');
 mongoose.connect(process.env.DB_CONNECTION, 
 {
  useNewUrlParser: true,
@@ -16,6 +16,8 @@ mongoose.connect(process.env.DB_CONNECTION,
 //import authentication
 //const authentication = require('./middleware/authenticate.js'); 
 //imports routes
+app.use(passport.initialize());
+require('./middleware/authenticate')(passport);
 const queriesRoute = require('./routes/query-route.js');
 app.use('/api',queriesRoute);
 
