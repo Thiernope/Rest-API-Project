@@ -19,7 +19,7 @@ router.post('/queries', async(req, res)=>{
     const savedQuery = await query.save();
     res
     .status(201)
-    .json(savedQuery);
+    .json({message: "query created successfully"});
     }catch(err){
     res
     .status(400)

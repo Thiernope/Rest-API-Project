@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const express = require('express');
 const app = express();
 const DB = require('./database/config.js');
+
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 mongoose.connect(process.env.DB_CONNECTION, 
