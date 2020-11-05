@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {registerUser, loginUser, userAuth, serializeUser,roleCheck } = require('../controllers/userController.js');
+const {registerUser, loginUser, userAuth, serializeUser,roleCheck, updateUser } = require('../controllers/userController.js');
 router.post('/register-user', async(req, res)=>{
     await registerUser(req.body, 'user', res);
 });
@@ -39,6 +39,10 @@ router.post('/super-admin-protected', userAuth, roleCheck(['superadmin']), async
 router.get('/users/profile', userAuth, async(req, res)=>{
 return res.json(serializeUser(req.user));
 });
+
+router.patch('/users/profile', userAuth,updateUser);
+   
+ 
 
 
 

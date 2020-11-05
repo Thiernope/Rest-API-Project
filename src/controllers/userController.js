@@ -141,10 +141,40 @@ const serializeUser = user => {
     }
 }
 
+//updating a blog elements of a chose blog by its id
+
+const updateUser = async(req, res)=>{
+    try{
+const findUser = await User.findById(req.user._id);
+const updatedUser = await User.updateOne(
+    {_id:findUser._id},
+    {$set:{
+        name:req.body.name,
+        username: req.body.username,
+        email:req.body.email,
+        phone: req.body.phone 
+    }});
+    const foundUser = await User.findById(req.user._id).select("name email username phone");
+    res
+    .status(200)
+    .json({message: "The blog is updated",foundUser})
+    }catch(err){
+        console.log(err);
+    res
+    .status(404)
+    .json({message: "the blog is not updated"});
+    }
+};
+
+
+
+
+
 module.exports = {
     userAuth,
     registerUser, 
     loginUser,
     serializeUser,
-    roleCheck
+    roleCheck,
+    updateUser
 }
