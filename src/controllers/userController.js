@@ -152,12 +152,12 @@ const updatedUser = await User.updateOne(
         name:req.body.name,
         username: req.body.username,
         email:req.body.email,
-        phone: req.body.phone 
+        phone: req.body.phone
     }});
     const foundUser = await User.findById(req.user._id).select("name email username phone");
     res
     .status(200)
-    .json({message: "The blog is updated",foundUser})
+    .json({message: "User profile is updated",foundUser})
     }catch(err){
         console.log(err);
     res
